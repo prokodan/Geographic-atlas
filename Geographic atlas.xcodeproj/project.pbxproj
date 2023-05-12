@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBDF2A0E31440013910F /* AppDelegate.swift */; };
 		9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBE12A0E31440013910F /* SceneDelegate.swift */; };
-		9EABCBE42A0E31440013910F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBE32A0E31440013910F /* ViewController.swift */; };
-		9EABCBE72A0E31440013910F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBE52A0E31440013910F /* Main.storyboard */; };
 		9EABCBE92A0E31460013910F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBE82A0E31460013910F /* Assets.xcassets */; };
 		9EABCBEC2A0E31460013910F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBEA2A0E31460013910F /* LaunchScreen.storyboard */; };
+		9EABCBF62A0E360A0013910F /* CountriesListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBF52A0E36090013910F /* CountriesListTableViewController.swift */; };
+		9EABCBFA2A0E37C90013910F /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBF92A0E37C90013910F /* Resources.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9EABCBDC2A0E31440013910F /* Geographic atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geographic atlas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EABCBDF2A0E31440013910F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EABCBE12A0E31440013910F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9EABCBE32A0E31440013910F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9EABCBE62A0E31440013910F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9EABCBE82A0E31460013910F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EABCBEB2A0E31460013910F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9EABCBED2A0E31460013910F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EABCBF32A0E317C0013910F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		9EABCBF42A0E31AB0013910F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		9EABCBF52A0E36090013910F /* CountriesListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesListTableViewController.swift; sourceTree = "<group>"; };
+		9EABCBF92A0E37C90013910F /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +42,8 @@
 		9EABCBD32A0E31440013910F = {
 			isa = PBXGroup;
 			children = (
+				9EABCBF42A0E31AB0013910F /* .gitignore */,
+				9EABCBF32A0E317C0013910F /* README.md */,
 				9EABCBDE2A0E31440013910F /* Geographic atlas */,
 				9EABCBDD2A0E31440013910F /* Products */,
 			);
@@ -56,15 +60,39 @@
 		9EABCBDE2A0E31440013910F /* Geographic atlas */ = {
 			isa = PBXGroup;
 			children = (
+				9EABCBF72A0E37580013910F /* Application */,
+				9EABCBF82A0E37770013910F /* Supporting */,
+				9EABCBF52A0E36090013910F /* CountriesListTableViewController.swift */,
+				9EABCBFB2A0E37D00013910F /* Helpers */,
+			);
+			path = "Geographic atlas";
+			sourceTree = "<group>";
+		};
+		9EABCBF72A0E37580013910F /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				9EABCBDF2A0E31440013910F /* AppDelegate.swift */,
 				9EABCBE12A0E31440013910F /* SceneDelegate.swift */,
-				9EABCBE32A0E31440013910F /* ViewController.swift */,
-				9EABCBE52A0E31440013910F /* Main.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		9EABCBF82A0E37770013910F /* Supporting */ = {
+			isa = PBXGroup;
+			children = (
 				9EABCBE82A0E31460013910F /* Assets.xcassets */,
 				9EABCBEA2A0E31460013910F /* LaunchScreen.storyboard */,
 				9EABCBED2A0E31460013910F /* Info.plist */,
 			);
-			path = "Geographic atlas";
+			path = Supporting;
+			sourceTree = "<group>";
+		};
+		9EABCBFB2A0E37D00013910F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9EABCBF92A0E37C90013910F /* Resources.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +155,6 @@
 			files = (
 				9EABCBEC2A0E31460013910F /* LaunchScreen.storyboard in Resources */,
 				9EABCBE92A0E31460013910F /* Assets.xcassets in Resources */,
-				9EABCBE72A0E31440013910F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +165,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EABCBE42A0E31440013910F /* ViewController.swift in Sources */,
 				9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */,
+				9EABCBFA2A0E37C90013910F /* Resources.swift in Sources */,
+				9EABCBF62A0E360A0013910F /* CountriesListTableViewController.swift in Sources */,
 				9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -147,14 +175,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9EABCBE52A0E31440013910F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9EABCBE62A0E31440013910F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		9EABCBEA2A0E31460013910F /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -289,12 +309,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 52V9YXPJQB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Geographic atlas/Info.plist";
+				INFOPLIST_FILE = "Geographic atlas/Supporting/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,6 +322,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "prokodan.Geographic-atlas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -317,12 +340,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 52V9YXPJQB;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Geographic atlas/Info.plist";
+				INFOPLIST_FILE = "Geographic atlas/Supporting/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -330,6 +353,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "prokodan.Geographic-atlas";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
