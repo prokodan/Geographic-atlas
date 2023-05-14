@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E339CEC2A10F2CF00143495 /* UIPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339CEB2A10F2CF00143495 /* UIPaddingLabel.swift */; };
+		9E339CEF2A1114D100143495 /* CountriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339CEE2A1114D100143495 /* CountriesModel.swift */; };
 		9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBDF2A0E31440013910F /* AppDelegate.swift */; };
 		9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBE12A0E31440013910F /* SceneDelegate.swift */; };
 		9EABCBE92A0E31460013910F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBE82A0E31460013910F /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		9E339CEB2A10F2CF00143495 /* UIPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPaddingLabel.swift; sourceTree = "<group>"; };
+		9E339CEE2A1114D100143495 /* CountriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountriesModel.swift; sourceTree = "<group>"; };
 		9EABCBDC2A0E31440013910F /* Geographic atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geographic atlas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EABCBDF2A0E31440013910F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EABCBE12A0E31440013910F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,14 @@
 			path = "Helper Classes";
 			sourceTree = "<group>";
 		};
+		9E339CED2A11148900143495 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9E339CEE2A1114D100143495 /* CountriesModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		9EABCBD32A0E31440013910F = {
 			isa = PBXGroup;
 			children = (
@@ -94,6 +104,7 @@
 		9EABCBDE2A0E31440013910F /* Geographic atlas */ = {
 			isa = PBXGroup;
 			children = (
+				9E339CED2A11148900143495 /* Model */,
 				9EABCBF72A0E37580013910F /* Application */,
 				9EABCBF82A0E37770013910F /* Supporting */,
 				9EABCBFC2A0E3C130013910F /* Controller */,
@@ -310,6 +321,7 @@
 				9EABCC022A0E3F400013910F /* UIColor + extension.swift in Sources */,
 				9EABCC142A0E6E810013910F /* CountryCellView.swift in Sources */,
 				9EABCC222A0FD93D0013910F /* CountryDetailsView.swift in Sources */,
+				9E339CEF2A1114D100143495 /* CountriesModel.swift in Sources */,
 				9EABCC0C2A0E4C430013910F /* GABaseController.swift in Sources */,
 				9EABCC1A2A0EA6F40013910F /* CustomCollectionCountyDetailView.swift in Sources */,
 				9EABCC122A0E65390013910F /* SectionHeaderView.swift in Sources */,
