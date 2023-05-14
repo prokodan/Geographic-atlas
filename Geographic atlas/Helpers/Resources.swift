@@ -43,6 +43,16 @@ enum Resources {
             static let currenciesLabel = "Currencies"
             static let buttonTextLabel = "Learn more"
         }
+        
+        enum Details {
+            static let regionLabel = "Region"
+            static let capitalLabel = "Capital"
+            static let capitalCoordinates = "Capital coordinates"
+            static let populationLabel = "Population"
+            static let areaLabel = "Area"
+            static let currencyLabel = "Currency"
+            static let timezonesLabel = "Timezones"
+        }
     }
     
     enum Fonts {

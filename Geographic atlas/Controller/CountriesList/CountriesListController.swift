@@ -12,12 +12,15 @@ struct MockData {
     let countries: [Countries]
     
     struct Countries {
+        let region: String?
         let name: String
         let capital: String
         let image: UIImage
+        let capitalCoordinates: String?
         let population: String
         let area: String
         let currencies: [String]
+        let timezones: [String]
     }
 }
 
@@ -36,8 +39,7 @@ class CountriesListController: GABaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = R.Strings.NavBar.countriesListTitle
-        navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 1)
+        
         setupViews()
         constraintViews()
         configureAppearance()
@@ -69,20 +71,23 @@ extension CountriesListController {
     private func  mockDataSource() {
         dataSource = [
             .init(continent: "Europe", countries: [
-                .init(name: "Germany", capital: "Berlin", image: R.Pictures.Cell.flagPicture!, population: "2.45 mln", area: "4.444 km2", currencies: ["eur"]),
-                .init(name: "Austria", capital: "Vienna", image: R.Pictures.Cell.flagPicture!, population: "1.44 mln", area: "2.12 km2", currencies: ["eur"])
+                .init(region: "Europe", name: "Germany", capital: "Berlin", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "51.1 22.2", population: "2.45 mln", area: "4.444 km2", currencies: ["eur"], timezones: ["GMT +4"]),
+                .init(region: "Europe", name: "Austria", capital: "Vienna", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "23.3 44.2", population: "1.44 mln", area: "2.12 km2", currencies: ["eur"], timezones: ["GMT +2"])
             ]),
             .init(continent: "Australia", countries: [
-                .init(name: "Australia", capital: "Canberra", image: R.Pictures.Cell.flagPicture!, population: "5.23 mln", area: "10.1 km2", currencies: ["ausd"])
+                .init(region: "Australia", name: "Australia", capital: "Canberra", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "55.5 34.4", population: "5.23 mln", area: "10.1 km2", currencies: ["ausd", "usd"], timezones: ["GMT +6", "GMT +7"])
             ]),
             .init(continent: "Asia", countries: [
-                .init(name: "Kazakhstan", capital: "Astana", image: R.Pictures.Cell.flagPicture!, population: "17 mln", area: "9.9 km2", currencies: ["kzt"])
+                .init(region: "Asia",name: "Kazakhstan", capital: "Astana", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "34.4 42.2", population: "17 mln", area: "9.9 km2", currencies: ["kzt"], timezones: ["GMT +7"])
             ])
         ]
     }
     
     override func configureAppearance() {
         super.configureAppearance()
+        title = R.Strings.NavBar.countriesListTitle
+        navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 1)
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", image: nil, primaryAction: nil, menu: nil)
         
         mockDataSource()
         collectionView.register(CountryCellView.self, forCellWithReuseIdentifier: CountryCellView.id)
@@ -139,19 +144,27 @@ extension CountriesListController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return UICollectionViewCell() }
-//        let item = dataSource[indexPath.section].countries[indexPath.row]
         cell.configure(with: dataSource[indexPath.section].countries[indexPath.row])
+        cell.buttonAction(target: self, action: #selector(didTapButton))
         return cell
                 
     }
-    
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath) as? SectionHeaderView else { return UICollectionReusableView() }
         let item = dataSource[indexPath.section].continent
         view.configure(with: item)
         return view
     }
-    
+}
 
+@objc
+extension CountriesListController {
+    func didTapButton() {
+        let countryDetailsVC = CountryDetails()
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        let data = dataSource[indexPath.section].countries[indexPath.row]
+        countryDetailsVC.dataSource = data
+        navigationController?.pushViewController(countryDetailsVC, animated: true)
+    }
 }

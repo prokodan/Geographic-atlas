@@ -7,9 +7,11 @@
 
 import UIKit
 
+
+
 final class CountryCellView: UICollectionViewCell {
+
     static let id = "CountryCellView"
-    
     
     private let containerView : UIStackView = {
         let view = UIStackView()
@@ -81,11 +83,6 @@ extension CountryCellView {
         cellView,
         detailView,
         ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        
-        
-//        [
-//        containerView
-//        ].forEach { addView($0) }
     }
     
     func constraintViews() {
@@ -102,7 +99,6 @@ extension CountryCellView {
         self.roundCorners(with: 12, and: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner])
         
         detailView.isHidden = true
-        
     }
 }
 
@@ -115,5 +111,8 @@ extension CountryCellView {
         detailView.isHidden = true
     }
     
+    func buttonAction(target: Any, action: Selector) {
+        detailView.addButtonTarget(target: target, action: action)
+    }
 }
 

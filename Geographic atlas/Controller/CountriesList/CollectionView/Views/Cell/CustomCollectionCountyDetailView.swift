@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 final class CustomCollectionCountyDetailView: GABaseView {
     
     private let populationLabel: UILabel = {
@@ -75,6 +77,10 @@ final class CustomCollectionCountyDetailView: GABaseView {
         areaValueLabel.text = area
         currenciesValueLabel.text = currencies.joined(separator: ", ")
         button.setTitle(R.Strings.Cell.buttonTextLabel)
+    }
+    
+    func addButtonTarget(target: Any?, action: Selector) {
+        button.addTarget(target, action: action, for: .touchUpInside)
     }
     
 }

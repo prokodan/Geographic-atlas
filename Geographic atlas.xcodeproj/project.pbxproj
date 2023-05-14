@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E339CEC2A10F2CF00143495 /* UIPaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339CEB2A10F2CF00143495 /* UIPaddingLabel.swift */; };
 		9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBDF2A0E31440013910F /* AppDelegate.swift */; };
 		9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBE12A0E31440013910F /* SceneDelegate.swift */; };
 		9EABCBE92A0E31460013910F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBE82A0E31460013910F /* Assets.xcassets */; };
@@ -23,9 +24,12 @@
 		9EABCC162A0EA66A0013910F /* CountryCollectionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCC152A0EA66A0013910F /* CountryCollectionCellView.swift */; };
 		9EABCC1A2A0EA6F40013910F /* CustomCollectionCountyDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCC192A0EA6F40013910F /* CustomCollectionCountyDetailView.swift */; };
 		9EABCC1C2A0EC22D0013910F /* GAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCC1B2A0EC22D0013910F /* GAButton.swift */; };
+		9EABCC1F2A0FAE600013910F /* CountryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCC1E2A0FAE600013910F /* CountryDetails.swift */; };
+		9EABCC222A0FD93D0013910F /* CountryDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCC212A0FD93D0013910F /* CountryDetailsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E339CEB2A10F2CF00143495 /* UIPaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPaddingLabel.swift; sourceTree = "<group>"; };
 		9EABCBDC2A0E31440013910F /* Geographic atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geographic atlas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EABCBDF2A0E31440013910F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EABCBE12A0E31440013910F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -46,6 +50,8 @@
 		9EABCC152A0EA66A0013910F /* CountryCollectionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCollectionCellView.swift; sourceTree = "<group>"; };
 		9EABCC192A0EA6F40013910F /* CustomCollectionCountyDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionCountyDetailView.swift; sourceTree = "<group>"; };
 		9EABCC1B2A0EC22D0013910F /* GAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GAButton.swift; sourceTree = "<group>"; };
+		9EABCC1E2A0FAE600013910F /* CountryDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetails.swift; sourceTree = "<group>"; };
+		9EABCC212A0FD93D0013910F /* CountryDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryDetailsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E339CEA2A10F26B00143495 /* Helper Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9E339CEB2A10F2CF00143495 /* UIPaddingLabel.swift */,
+			);
+			path = "Helper Classes";
+			sourceTree = "<group>";
+		};
 		9EABCBD32A0E31440013910F = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +124,7 @@
 		9EABCBFB2A0E37D00013910F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9E339CEA2A10F26B00143495 /* Helper Classes */,
 				9EABCBF92A0E37C90013910F /* Resources.swift */,
 				9EABCC032A0E40090013910F /* Extensions */,
 			);
@@ -201,8 +216,18 @@
 		9EABCC1D2A0FA9EF0013910F /* CountryDetails */ = {
 			isa = PBXGroup;
 			children = (
+				9EABCC202A0FD90C0013910F /* Views */,
+				9EABCC1E2A0FAE600013910F /* CountryDetails.swift */,
 			);
 			path = CountryDetails;
+			sourceTree = "<group>";
+		};
+		9EABCC202A0FD90C0013910F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EABCC212A0FD93D0013910F /* CountryDetailsView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,16 +304,19 @@
 				9EABCC082A0E46630013910F /* GABaseView.swift in Sources */,
 				9EABCBFA2A0E37C90013910F /* Resources.swift in Sources */,
 				9EABCC002A0E3CAB0013910F /* NavigationController.swift in Sources */,
+				9E339CEC2A10F2CF00143495 /* UIPaddingLabel.swift in Sources */,
 				9EABCC0E2A0E4D150013910F /* CountriesListController.swift in Sources */,
 				9EABCC162A0EA66A0013910F /* CountryCollectionCellView.swift in Sources */,
 				9EABCC022A0E3F400013910F /* UIColor + extension.swift in Sources */,
 				9EABCC142A0E6E810013910F /* CountryCellView.swift in Sources */,
+				9EABCC222A0FD93D0013910F /* CountryDetailsView.swift in Sources */,
 				9EABCC0C2A0E4C430013910F /* GABaseController.swift in Sources */,
 				9EABCC1A2A0EA6F40013910F /* CustomCollectionCountyDetailView.swift in Sources */,
 				9EABCC122A0E65390013910F /* SectionHeaderView.swift in Sources */,
 				9EABCC1C2A0EC22D0013910F /* GAButton.swift in Sources */,
 				9EABCC052A0E407C0013910F /* UIView + extension.swift in Sources */,
 				9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */,
+				9EABCC1F2A0FAE600013910F /* CountryDetails.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,8 +11,7 @@ final class CountryCollectionCellView: GABaseView {
     
     private let imageFlagView: UIImageView = {
         let view = UIImageView()
-        view.image = R.Pictures.Cell.flagPicture
-        view.roundCorners(with: 12, and: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner])
+        view.clipsToBounds = true
         return view
     }()
     

@@ -55,5 +55,6 @@ private extension GAButton {
     
     func configureAppearance() {
         backgroundColor = .clear
+        makeSystem(self)
     }
 }
