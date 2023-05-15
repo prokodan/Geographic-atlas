@@ -13,26 +13,39 @@ final class CountryCellView: UICollectionViewCell {
 
     static let id = "CountryCellView"
     
-    private let containerView : UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        return view
-    }()
+//    private let containerView : UIStackView = {
+//        let view = UIStackView()
+//        view.axis = .vertical
+//        return view
+//    }()
     private let cellView = CountryCollectionCellView()
-    private lazy var detailView = CustomCollectionCountyDetailView()
+    private let detailView = CustomCollectionCountyDetailView()
     
     var isDetailViewHidden: Bool {
         detailView.isHidden
+    }
+    
+    override func updateConstraints() {
+        
+            super.updateConstraints()
     }
     
     override var isSelected: Bool {
         didSet {
             if isDetailViewHidden, isSelected {
                 cellView.setUpArrowImage()
+//                containerView.addArrangedSubview(detailView)
+//                containerView.translatesAutoresizingMaskIntoConstraints = false
+                
                 showDetailView()
+//            } else if isDetailViewHidden, !isSelected {
+//                cellView.setDownArrowImage()
+//                hideDetailView()
+//                detailView.removeFromSuperview()
             } else {
                 cellView.setDownArrowImage()
                 hideDetailView()
+//                detailView.removeFromSuperview()
             }
         }
     }
@@ -85,26 +98,41 @@ extension CountryCellView {
         [
         cellView,
         detailView
-        ].forEach { containerView.addArrangedSubview($0) }
+        ].forEach { contentView.addView($0) }
         
-        [
-            containerView
-        ].forEach { contentView.addView($0)}
+//        [
+//            containerView
+//        ].forEach { contentView.addView($0)}
         
-        [
-        cellView,
-        detailView,
-        ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+//        [
+//        cellView,
+////        detailView,
+//        ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
     }
     
     func constraintViews() {
-        NSLayoutConstraint.activate([
-            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-        ])
+        
+        cellView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview()
+        }
+        
+        detailView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(cellView.snp.bottom)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+        
+        
+//        containerView.snp.makeConstraints {
+//            $0.leading.equalTo(contentView.snp.leading)
+//            $0.top.equalTo(contentView.snp.top)
+//            $0.trailing.equalTo(contentView.snp.trailing)
+//            $0.bottom.equalTo(contentView.snp.bottom)
+//        }
     }
     
     func configureAppearance() {
@@ -121,6 +149,7 @@ extension CountryCellView {
     
     func hideDetailView() {
         detailView.isHidden = true
+
     }
     
     func buttonAction(target: Any, action: Selector) {

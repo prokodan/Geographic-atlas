@@ -101,28 +101,65 @@ extension CustomCollectionCountyDetailView {
     override func constraintViews() {
         super.constraintViews()
         
-        NSLayoutConstraint.activate([
-            populationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            populationLabel.topAnchor.constraint(equalTo: topAnchor),
-            populationLabel.trailingAnchor.constraint(equalTo: populationValueLabel.leadingAnchor, constant: -4),
-            populationValueLabel.topAnchor.constraint(equalTo: populationLabel.topAnchor),
-            
-            areaLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            areaLabel.topAnchor.constraint(equalTo: populationLabel.bottomAnchor, constant: 8),
-            areaLabel.trailingAnchor.constraint(equalTo: areaValueLabel.leadingAnchor, constant: -4),
-            areaValueLabel.topAnchor.constraint(equalTo: areaLabel.topAnchor),
+        populationLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalToSuperview()
+        }
+        populationValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(populationLabel.snp.trailing).offset(4)
+            $0.top.equalTo(populationLabel.snp.top)
+        }
+        
+        areaLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalTo(populationLabel.snp.bottom).offset(8)
+        }
+        areaValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(populationLabel.snp.trailing).offset(4)
+            $0.top.equalTo(areaLabel.snp.top)
+        }
+        
+        currenciesLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalTo(areaLabel.snp.bottom).offset(8)
+        }
+        currenciesValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(populationLabel.snp.trailing).offset(4)
+            $0.top.equalTo(currenciesLabel.snp.top)
+        }
+        
+        button.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalTo(currenciesLabel.snp.bottom).offset(12)
+            $0.trailing.equalToSuperview().offset(-12)
+            $0.height.equalTo(50)
+            $0.bottom.equalToSuperview().offset(-12)
+        }
+        
+        
+        
+//        NSLayoutConstraint.activate([
+//            populationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//            populationLabel.topAnchor.constraint(equalTo: topAnchor),
+//            populationLabel.trailingAnchor.constraint(equalTo: populationValueLabel.leadingAnchor, constant: -4),
+//            populationValueLabel.topAnchor.constraint(equalTo: populationLabel.topAnchor),
 //
-            currenciesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            currenciesLabel.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 8),
-            currenciesLabel.trailingAnchor.constraint(equalTo: currenciesValueLabel.leadingAnchor, constant: -4),
-            currenciesValueLabel.topAnchor.constraint(equalTo: currenciesLabel.topAnchor),
-//
-            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-            button.topAnchor.constraint(equalTo: currenciesLabel.bottomAnchor, constant: 12),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-            button.heightAnchor.constraint(equalToConstant: 50),
-            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
-        ])
+//            areaLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//            areaLabel.topAnchor.constraint(equalTo: populationLabel.bottomAnchor, constant: 8),
+//            areaLabel.trailingAnchor.constraint(equalTo: areaValueLabel.leadingAnchor, constant: -4),
+//            areaValueLabel.topAnchor.constraint(equalTo: areaLabel.topAnchor),
+////
+//            currenciesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//            currenciesLabel.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 8),
+//            currenciesLabel.trailingAnchor.constraint(equalTo: currenciesValueLabel.leadingAnchor, constant: -4),
+//            currenciesValueLabel.topAnchor.constraint(equalTo: currenciesLabel.topAnchor),
+////
+//            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
+//            button.topAnchor.constraint(equalTo: currenciesLabel.bottomAnchor, constant: 12),
+//            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
+//            button.heightAnchor.constraint(equalToConstant: 50),
+//            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
+//        ])
     }
     
     override func configureAppearance() {

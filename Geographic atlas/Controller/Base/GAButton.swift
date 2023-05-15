@@ -45,12 +45,10 @@ private extension GAButton {
     }
     
     func constraintViews() {
-        NSLayoutConstraint.activate([
-            
-            label.centerYAnchor.constraint(equalTo: centerYAnchor),
-            label.centerXAnchor.constraint(equalTo: centerXAnchor)
-            
-        ])
+        label.snp.makeConstraints {
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.centerX.equalTo(self.snp.centerX)
+        }
     }
     
     func configureAppearance() {

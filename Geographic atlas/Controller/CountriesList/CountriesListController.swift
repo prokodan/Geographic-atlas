@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CountriesListController: GABaseController {
     
@@ -42,13 +43,13 @@ extension CountriesListController {
     
     override func constraintViews() {
         super.constraintViews()
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            
-        ])
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            $0.trailing.equalToSuperview().offset(-12)
+            $0.bottom.equalToSuperview()
+        }
     }
     
     private func updateModel() {
@@ -106,6 +107,7 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView
         UIView.animate(withDuration: 0.3) {
             self.collectionView.performBatchUpdates(nil)
+
         }
     }
     

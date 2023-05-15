@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CountryCollectionCellView: GABaseView {
     
@@ -99,26 +100,25 @@ extension CountryCollectionCellView {
     override func constraintViews() {
         super.constraintViews()
         
-        NSLayoutConstraint.activate([
-            imageFlagView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            imageFlagView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageFlagView.topAnchor.constraint(equalTo: topAnchor, constant: 12),
-            imageFlagView.heightAnchor.constraint(equalToConstant: 48),
-            imageFlagView.widthAnchor.constraint(equalToConstant: 82),
-            
-            stackView.leadingAnchor.constraint(equalTo: imageFlagView.trailingAnchor, constant: 12),
-//            stackView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            stackView.trailingAnchor.constraint(equalTo: imageArrowView.leadingAnchor, constant: -12),
-            
-//            imageArrowView.centerYAnchor.constraint(equalTo: centerYAnchor),
-            imageArrowView.topAnchor.constraint(equalTo: topAnchor, constant: 32.25),
-            imageArrowView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -17.25),
-            imageArrowView.heightAnchor.constraint(equalToConstant: 7.5),
-            imageArrowView.widthAnchor.constraint(equalToConstant: 13.5),
-            
-        ])
+        imageFlagView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(12)
+            $0.top.equalToSuperview().offset(12)
+            $0.height.equalTo(48)
+            $0.width.equalTo(82)
+        }
         
+        stackView.snp.makeConstraints {
+            $0.leading.equalTo(imageFlagView.snp.trailing).offset(12)
+            $0.top.equalToSuperview().offset(16)
+            $0.trailing.equalTo(imageArrowView.snp.leading).offset(-12)
+        }
+        
+        imageArrowView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(32.25)
+            $0.trailing.equalToSuperview().offset(-17.25)
+            $0.height.equalTo(7.5)
+            $0.width.equalTo(13.5)
+        }
     }
     
     override func configureAppearance() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class CountryDetailsView: GABaseView {
     
@@ -302,81 +303,133 @@ extension CountryDetailsView {
     override func constraintViews() {
         super.constraintViews()
         
-        NSLayoutConstraint.activate([
-            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            containerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            containerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            containerView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -40),
-            containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            
-            imageFlagView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            imageFlagView.topAnchor.constraint(equalTo: containerView.topAnchor),
-            imageFlagView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            imageFlagView.heightAnchor.constraint(equalToConstant: 193),
-            
-            bulletOne.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletOne.topAnchor.constraint(equalTo: regionLabel.topAnchor),
-            
-            regionLabel.leadingAnchor.constraint(equalTo: bulletOne.trailingAnchor, constant: 8),
-            regionLabel.topAnchor.constraint(equalTo: imageFlagView.bottomAnchor, constant: 20),
-            regionValueLabel.leadingAnchor.constraint(equalTo: regionLabel.leadingAnchor),
-            regionValueLabel.topAnchor.constraint(equalTo: regionLabel.bottomAnchor, constant: 4),
-            
-            bulletTwo.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletTwo.topAnchor.constraint(equalTo: capitalLabel.topAnchor),
-            
-            capitalLabel.leadingAnchor.constraint(equalTo: bulletTwo.trailingAnchor, constant: 8),
-            capitalLabel.topAnchor.constraint(equalTo: regionValueLabel.bottomAnchor, constant: 24),
-            capitalValueLabel.leadingAnchor.constraint(equalTo: capitalLabel.leadingAnchor),
-            capitalValueLabel.topAnchor.constraint(equalTo: capitalLabel.bottomAnchor, constant: 4),
-            
-            bulletThree.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletThree.topAnchor.constraint(equalTo: capitalCoordinatesLabel.topAnchor),
-            
-            capitalCoordinatesLabel.leadingAnchor.constraint(equalTo: bulletThree.trailingAnchor, constant: 8),
-            capitalCoordinatesLabel.topAnchor.constraint(equalTo: capitalValueLabel.bottomAnchor, constant: 24),
-            capitalCoordinatesValueLabel.leadingAnchor.constraint(equalTo: capitalCoordinatesLabel.leadingAnchor),
-            capitalCoordinatesValueLabel.topAnchor.constraint(equalTo: capitalCoordinatesLabel.bottomAnchor, constant: 4),
-            
-            bulletFour.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletFour.topAnchor.constraint(equalTo: populationLabel.topAnchor),
-            
-            populationLabel.leadingAnchor.constraint(equalTo: bulletFour.trailingAnchor, constant: 8),
-            populationLabel.topAnchor.constraint(equalTo: capitalCoordinatesValueLabel.bottomAnchor, constant: 24),
-            populationValueLabel.leadingAnchor.constraint(equalTo: populationLabel.leadingAnchor),
-            populationValueLabel.topAnchor.constraint(equalTo: populationLabel.bottomAnchor, constant: 4),
-            
-            bulletFive.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletFive.topAnchor.constraint(equalTo: areaLabel.topAnchor),
-            
-            areaLabel.leadingAnchor.constraint(equalTo: bulletFive.trailingAnchor, constant: 8),
-            areaLabel.topAnchor.constraint(equalTo: populationValueLabel.bottomAnchor, constant: 24),
-            areaValueLabel.leadingAnchor.constraint(equalTo: areaLabel.leadingAnchor),
-            areaValueLabel.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 4),
-            
-            bulletSix.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletSix.topAnchor.constraint(equalTo: currencyLabel.topAnchor),
-            
-            currencyLabel.leadingAnchor.constraint(equalTo: bulletSix.trailingAnchor, constant: 8),
-            currencyLabel.topAnchor.constraint(equalTo: areaValueLabel.bottomAnchor, constant: 24),
-            currencyValueLabel.leadingAnchor.constraint(equalTo: currencyLabel.leadingAnchor),
-            currencyValueLabel.topAnchor.constraint(equalTo: currencyLabel.bottomAnchor, constant: 4),
-            
-            bulletSeven.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            bulletSeven.topAnchor.constraint(equalTo: timezoneLabel.topAnchor),
-            
-            timezoneLabel.leadingAnchor.constraint(equalTo: bulletSeven.trailingAnchor, constant: 8),
-            timezoneLabel.topAnchor.constraint(equalTo: currencyValueLabel.bottomAnchor, constant: 24),
-            timezoneValueLabel.leadingAnchor.constraint(equalTo: timezoneLabel.leadingAnchor),
-            timezoneValueLabel.topAnchor.constraint(equalTo: timezoneLabel.bottomAnchor, constant: 4),
-            timezoneValueLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-            
-        ])
+        scrollView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(16)
+            $0.top.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.bottom.equalToSuperview()
+        }
+        
+        containerView.snp.makeConstraints {
+            $0.leading.equalTo(scrollView.contentLayoutGuide.snp.leading)
+            $0.top.equalTo(scrollView.contentLayoutGuide.snp.top).offset(20)
+            $0.trailing.equalTo(scrollView.contentLayoutGuide.snp.trailing)
+            $0.bottom.equalTo(scrollView.contentLayoutGuide.snp.bottom).offset(-40)
+            $0.width.equalTo(scrollView.snp.width)
+        }
+        
+        imageFlagView.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(containerView.snp.top)
+            $0.trailing.equalTo(containerView.snp.trailing)
+            $0.height.equalTo(193)
+        }
+        
+        bulletOne.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(regionLabel.snp.top)
+        }
+        
+        regionLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletOne.snp.trailing).offset(8)
+            $0.top.equalTo(imageFlagView.snp.bottom).offset(20)
+        }
+        
+        regionValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(regionLabel.snp.leading)
+            $0.top.equalTo(regionLabel.snp.bottom).offset(4)
+        }
+        
+        bulletTwo.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(capitalLabel.snp.top)
+        }
+        
+        capitalLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletTwo.snp.trailing).offset(8)
+            $0.top.equalTo(regionValueLabel.snp.bottom).offset(24)
+        }
+        
+        capitalValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(capitalLabel.snp.leading)
+            $0.top.equalTo(capitalLabel.snp.bottom).offset(4)
+        }
+        
+        bulletThree.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(capitalCoordinatesLabel.snp.top)
+        }
+        
+        capitalCoordinatesLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletThree.snp.trailing).offset(8)
+            $0.top.equalTo(capitalValueLabel.snp.bottom).offset(24)
+        }
+        
+        capitalCoordinatesValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(capitalCoordinatesLabel.snp.leading)
+            $0.top.equalTo(capitalCoordinatesLabel.snp.bottom).offset(4)
+        }
+        
+        bulletFour.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(populationLabel.snp.top)
+        }
+        
+        populationLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletFour.snp.trailing).offset(8)
+            $0.top.equalTo(capitalCoordinatesValueLabel.snp.bottom).offset(24)
+        }
+        
+        populationValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(populationLabel.snp.leading)
+            $0.top.equalTo(populationLabel.snp.bottom).offset(4)
+        }
+        
+        bulletFive.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(areaLabel.snp.top)
+        }
+        
+        areaLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletFive.snp.trailing).offset(8)
+            $0.top.equalTo(populationValueLabel.snp.bottom).offset(24)
+        }
+        
+        areaValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(areaLabel.snp.leading)
+            $0.top.equalTo(areaLabel.snp.bottom).offset(4)
+        }
+        
+        bulletSix.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(currencyLabel.snp.top)
+        }
+        
+        currencyLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletSix.snp.trailing).offset(8)
+            $0.top.equalTo(areaValueLabel.snp.bottom).offset(24)
+        }
+        
+        currencyValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(currencyLabel.snp.leading)
+            $0.top.equalTo(currencyLabel.snp.bottom).offset(4)
+        }
+        
+        bulletSeven.snp.makeConstraints {
+            $0.leading.equalTo(containerView.snp.leading)
+            $0.top.equalTo(timezoneLabel.snp.top)
+        }
+        
+        timezoneLabel.snp.makeConstraints {
+            $0.leading.equalTo(bulletSeven.snp.trailing).offset(8)
+            $0.top.equalTo(currencyValueLabel.snp.bottom).offset(24)
+        }
+        
+        timezoneValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(timezoneLabel.snp.leading)
+            $0.top.equalTo(timezoneLabel.snp.bottom).offset(4)
+            $0.bottom.equalTo(containerView.snp.bottom)
+        }
     }
     
     override func configureAppearance() {

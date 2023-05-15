@@ -46,13 +46,13 @@ extension SectionHeaderView {
     }
     
     func constraintViews() {
-        NSLayoutConstraint.activate([
-            title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 2),
-            title.topAnchor.constraint(equalTo: topAnchor),
-            title.centerYAnchor.constraint(equalTo: centerYAnchor),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -2),
-            title.bottomAnchor.constraint(equalTo: bottomAnchor)
-        ])
+        title.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(2)
+            $0.top.equalToSuperview()
+            $0.centerY.equalTo(self.snp.centerY)
+            $0.trailing.equalToSuperview().offset(-2)
+            $0.bottom.equalToSuperview()
+        }
     }
     
     func configureAppearance() {}

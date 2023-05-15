@@ -34,12 +34,12 @@ extension CountryDetails {
     override func constraintViews() {
         super.constraintViews()
         
-        NSLayoutConstraint.activate([
-            detailsView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            detailsView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            detailsView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            detailsView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        detailsView.snp.makeConstraints {
+            $0.leading.equalToSuperview()
+            $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            $0.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
     }
     
     override func configureAppearance() {
