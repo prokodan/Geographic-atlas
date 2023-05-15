@@ -7,16 +7,13 @@
 
 import Foundation
 
-struct CountriesModel: Codable {
-    let countries: [Country]
-}
-
 struct Country: Codable {
     let name: Name
     let cca2: String
     let currencies: Currencies?
     let capital: [String]?
     let region: Region
+    let subregion: String?
     let area: Double
     let maps: Maps
     let population: Int
@@ -31,51 +28,52 @@ struct Name: Codable {
 }
 
 struct Currencies: Codable {
-    let eur, afn, sdg: Currency
-    let bgn, usd, pln, nzd: Currency
-    let tzs, mop, xof, czk: Currency
-    let ugx, ttd, dzd, uah: Currency
-    let mru, gel, ang, nad: Currency
-    let zar, mkd, mur, aud: Currency
-    let kid, xaf, qar, kyd: Currency
-    let bwp, egp, ils, jod: Currency
-    let vnd, gbp, jep, gyd: Currency
-    let tvd, pgk, bsd, cve: Currency
-    let omr, ves, bob, cad: Currency
-    let nok, kgs, amd, cdf: Currency
-    let chf, szl, dkk, fok: Currency
-    let ngn, mwk, stn, fkp: Currency
-    let gtq, bbd, ghs, nio: Currency
-    let imp, aoa, dop, all: Currency
-    let lyd, kwd, bhd, tmt: Currency
-    let lrd, rub, php, xcd: Currency
-    let ron, inr, mmk, bzd: Currency
-    let mnt, sar, huf, ars: Currency
-    let xpf, yer, sek, shp: Currency
-    let brl, ssp, thb: Currency
-    let bmd, bdt, sgd, mdl: Currency
-    let kes, uyu, byn, lbp: Currency
-    let btn, myr, kzt, tnd: Currency
-    let gmd, syp, gnf, mzn: Currency
-    let wst, twd, kpw, djf: Currency
-    let srd, rwf, krw, jmd: Currency
-    let mvr, pyg, idr, mga: Currency
-    let iqd, hnl, mad, hkd: Currency
-    let lkr, htg, cuc, cup: Currency
-    let tjs, ckd, cop, uzs: Currency
-    let gip, pen, pkr, clp: Currency
-    let zmw, scr, crc, kmf: Currency
-    let isk, jpy, fjd, bam: Currency
-    let mxn, khr, irr, rsd: Currency
-    let aed, azn, vuv, ern: Currency
-    let npr, pab, ggp, sbd: Currency
-    let zwl, awg, bnd, lak: Currency
-    let top, lsl, sos, sll: Currency
-    let bif, etb, cny: Currency
+
+    let eur, afn, sdg: Currency?
+    let bgn, usd, pln, nzd: Currency?
+    let tzs, mop, xof, czk: Currency?
+    let ugx, ttd, dzd, uah: Currency?
+    let mru, gel, ang, nad: Currency?
+    let zar, mkd, mur, aud: Currency?
+    let kid, xaf, qar, kyd: Currency?
+    let bwp, egp, ils, jod: Currency?
+    let vnd, gbp, jep, gyd: Currency?
+    let tvd, pgk, bsd, cve: Currency?
+    let omr, ves, bob, cad: Currency?
+    let nok, kgs, amd, cdf: Currency?
+    let chf, szl, dkk, fok: Currency?
+    let ngn, mwk, stn, fkp: Currency?
+    let gtq, bbd, ghs, nio: Currency?
+    let imp, aoa, dop, all: Currency?
+    let lyd, kwd, bhd, tmt: Currency?
+    let lrd, rub, php, xcd: Currency?
+    let ron, inr, mmk, bzd: Currency?
+    let mnt, sar, huf, ars: Currency?
+    let xpf, yer, sek, shp: Currency?
+    let brl, ssp, thb: Currency?
+    let bmd, bdt, sgd, mdl: Currency?
+    let kes, uyu, byn, lbp: Currency?
+    let btn, myr, kzt, tnd: Currency?
+    let gmd, syp, gnf, mzn: Currency?
+    let wst, twd, kpw, djf: Currency?
+    let srd, rwf, krw, jmd: Currency?
+    let mvr, pyg, idr, mga: Currency?
+    let iqd, hnl, mad, hkd: Currency?
+    let lkr, htg, cuc, cup: Currency?
+    let tjs, ckd, cop, uzs: Currency?
+    let gip, pen, pkr, clp: Currency?
+    let zmw, scr, crc, kmf: Currency?
+    let isk, jpy, fjd, bam: Currency?
+    let mxn, khr, irr, rsd: Currency?
+    let aed, azn, vuv, ern: Currency?
+    let npr, pab, ggp, sbd: Currency?
+    let zwl, awg, bnd, lak: Currency?
+    let top, lsl, sos, sll: Currency?
+    let bif, etb, cny, currenciesTRY: Currency?
     
     
-    enum CodingKeys: String, CodingKey {
-        case eur = "EUR"; case afn = "AFN"; case sdg = "SDG"; case bgn = "BGN"
+    enum CodingKeys: String, CodingKey, CaseIterable {
+        case eur = "EUR" ;case afn = "AFN"; case sdg = "SDG" ;case bgn = "BGN"
         case usd = "USD" ;case pln = "PLN" ;case nzd = "NZD" ;case tzs = "TZS"
         case mop = "MOP" ;case xof = "XOF" ;case czk = "CZK" ;case ugx = "UGX"
         case ttd = "TTD" ;case dzd = "DZD" ;case uah = "UAH" ;case mru = "MRU"
@@ -114,9 +112,8 @@ struct Currencies: Codable {
         case vuv = "VUV" ;case ern = "ERN" ;case npr = "NPR" ;case pab = "PAB"
         case ggp = "GGP" ;case sbd = "SBD" ;case zwl = "ZWL" ;case awg = "AWG"
         case bnd = "BND" ;case lak = "LAK" ;case top = "TOP" ;case lsl = "LSL"
-        case sos = "SOS" ;case sll = "SLL" ;case bif = "BIF" ;case etb = "ETB" ;
-        case cny = "CNY"
-        
+        case sos = "SOS" ;case sll = "SLL" ;case bif = "BIF" ;case etb = "ETB";
+        case cny = "CNY" ;case currenciesTRY = "TRY"
     }
 }
 
@@ -130,7 +127,8 @@ enum Region: String, Codable {
 }
 
 struct Currency: Codable {
-    let name, symbol: String
+    let name: String
+    let symbol: String?
 }
 
 struct Maps: Codable {
@@ -144,7 +142,7 @@ enum Continent: String, Codable {
     case europe = "Europe"
     case northAmerica = "North America"
     case oceania = "Oceania"
-    case southAmerica = "SouthAmerica"
+    case southAmerica = "South America"
 }
 
 struct Flag: Codable {
@@ -152,6 +150,6 @@ struct Flag: Codable {
 }
 
 struct CapitalInfo: Codable {
-    let latlng: Double
+    let latlng: [Double]?
 }
 

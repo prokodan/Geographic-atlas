@@ -7,23 +7,6 @@
 
 import UIKit
 
-struct MockData {
-    let continent: String
-    let countries: [Countries]
-    
-    struct Countries {
-        let region: String?
-        let name: String
-        let capital: String
-        let image: UIImage
-        let capitalCoordinates: String?
-        let population: String
-        let area: String
-        let currencies: [String]
-        let timezones: [String]
-    }
-}
-
 class CountriesListController: GABaseController {
     
     private let collectionView: UICollectionView = {
@@ -32,10 +15,12 @@ class CountriesListController: GABaseController {
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.showsVerticalScrollIndicator = false
         view.backgroundColor = .clear
+        view.selfSizingInvalidation = .enabled
         return view
     }()
     
-    private var dataSource: [MockData] = []
+    private var model: [Country] = []
+    private var sectionedModels: [[Continent] : [Country]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,8 +29,6 @@ class CountriesListController: GABaseController {
         constraintViews()
         configureAppearance()
     }
-
-
 }
 
 extension CountriesListController {
@@ -60,7 +43,7 @@ extension CountriesListController {
     override func constraintViews() {
         super.constraintViews()
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 12),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -12),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -68,19 +51,19 @@ extension CountriesListController {
         ])
     }
     
-    private func  mockDataSource() {
-        dataSource = [
-            .init(continent: "Europe", countries: [
-                .init(region: "Europe", name: "Germany", capital: "Berlin", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "51.1 22.2", population: "2.45 mln", area: "4.444 km2", currencies: ["eur"], timezones: ["GMT +4"]),
-                .init(region: "Europe", name: "Austria", capital: "Vienna", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "23.3 44.2", population: "1.44 mln", area: "2.12 km2", currencies: ["eur"], timezones: ["GMT +2"])
-            ]),
-            .init(continent: "Australia", countries: [
-                .init(region: "Australia", name: "Australia", capital: "Canberra", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "55.5 34.4", population: "5.23 mln", area: "10.1 km2", currencies: ["ausd", "usd"], timezones: ["GMT +6", "GMT +7"])
-            ]),
-            .init(continent: "Asia", countries: [
-                .init(region: "Asia",name: "Kazakhstan", capital: "Astana", image: R.Pictures.Cell.flagPicture!, capitalCoordinates: "34.4 42.2", population: "17 mln", area: "9.9 km2", currencies: ["kzt"], timezones: ["GMT +7"])
-            ])
-        ]
+    private func updateModel() {
+        DispatchQueue.main.async {
+            NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
+                switch result {
+                case .success(let model):
+                    self.model = model
+                    self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
+                    self.collectionView.reloadData()
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     override func configureAppearance() {
@@ -89,14 +72,15 @@ extension CountriesListController {
         navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 1)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", image: nil, primaryAction: nil, menu: nil)
         
-        mockDataSource()
+        updateModel()
         collectionView.register(CountryCellView.self, forCellWithReuseIdentifier: CountryCellView.id)
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.id)
         
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        collectionView.reloadData()
+//        collectionView.reloadData()
+        collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
     }
 }
 //MARK: - UICollectionViewDelegateFlowLayout
@@ -119,6 +103,7 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView
         UIView.animate(withDuration: 0.3) {
             self.collectionView.performBatchUpdates(nil)
         }
@@ -128,23 +113,45 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? CountryCellView {
             cell.hideDetailView()
         }
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView
+//        cell?.hideDetailView()
+            
+
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return }
+        cell.layoutIfNeeded()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return }
+        cell.hideDetailView()
+        cell.layoutIfNeeded()
+    }
+    
+    
     
 }
 //MARK: - UICollectionViewDataSource
 extension CountriesListController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        dataSource.count
+        sectionedModels.keys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataSource[section].countries.count
+        let sectionKey = Array(sectionedModels.keys)[section]
+        return sectionedModels[sectionKey]?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return UICollectionViewCell() }
-        cell.configure(with: dataSource[indexPath.section].countries[indexPath.row])
+        let sectionKey = Array(sectionedModels.keys)[indexPath.section]
+        let cellModel = sectionedModels[sectionKey]![indexPath.item]
+        cell.configure(with: cellModel)
         cell.buttonAction(target: self, action: #selector(didTapButton))
         return cell
                 
@@ -152,8 +159,8 @@ extension CountriesListController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath) as? SectionHeaderView else { return UICollectionReusableView() }
-        let item = dataSource[indexPath.section].continent
-        view.configure(with: item)
+        let sectionKey = Array(sectionedModels.keys)[indexPath.section]
+        view.configure(with: sectionKey.first?.rawValue ?? "Header defaul name")
         return view
     }
 }
@@ -163,8 +170,17 @@ extension CountriesListController {
     func didTapButton() {
         let countryDetailsVC = CountryDetails()
         guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-        let data = dataSource[indexPath.section].countries[indexPath.row]
-        countryDetailsVC.dataSource = data
-        navigationController?.pushViewController(countryDetailsVC, animated: true)
+        let sectionKey = Array(sectionedModels.keys)[indexPath.section]
+        let model = sectionedModels[sectionKey]![indexPath.item]
+        NetworkManager.shared.fetchRequest(Links.countryCCA2.rawValue, andCCA2Code: model.cca2) { result in
+            switch result {
+            case .success(let countryModel):
+                countryDetailsVC.dataModel = countryModel.first
+                print(countryModel)
+                self.navigationController?.pushViewController(countryDetailsVC, animated: true)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

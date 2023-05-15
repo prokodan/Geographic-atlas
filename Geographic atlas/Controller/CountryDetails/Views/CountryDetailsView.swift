@@ -126,8 +126,9 @@ class CountryDetailsView: GABaseView {
         let label = UILabel()
         label.font = R.Fonts.sFProRegular(with: 20)
         label.textColor = R.Colors.primaryText
-        label.numberOfLines = 0
         label.textAlignment = .left
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         return label
     }()
     
@@ -227,6 +228,13 @@ class CountryDetailsView: GABaseView {
         
         return view
     }()
+    
+    private var imageURL: URL? {
+        didSet {
+            imageFlagView.image = nil
+            updateImage()
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -242,26 +250,16 @@ class CountryDetailsView: GABaseView {
         configureAppearance()
     }
     
-    func configure(withImage image: UIImage, andRegion region: String, andCapital capital: String, andCapitalCoordinates coordinates: String, andPopulation population: String, andArea area: String, andCurrency currency: String, andTimezones timezones: [String]) {
-        self.imageFlagView.image = image
-        self.regionValueLabel.text = region
-        self.capitalValueLabel.text = capital
-        self.capitalCoordinatesValueLabel.text = coordinates
-        self.populationValueLabel.text = population
-        self.areaValueLabel.text = area
-        self.currencyValueLabel.text = currency
-        self.timezoneValueLabel.text = timezones.joined(separator: ", ")
-    }
-    
-    func configure(withData data: MockData.Countries) {
-        self.imageFlagView.image = data.image
-        self.regionValueLabel.text = data.region
-        self.capitalValueLabel.text = data.capital
-        self.capitalCoordinatesValueLabel.text = data.capitalCoordinates
-        self.populationValueLabel.text = data.population
-        self.areaValueLabel.text = data.area
-        self.currencyValueLabel.text = data.currencies.joined(separator: "\n")
-        self.timezoneValueLabel.text = data.timezones.joined(separator: "\n")
+    func configure(withDataModel dataModel: Country) {
+        self.imageURL = URL(string:dataModel.flags.png)
+        self.regionValueLabel.text = dataModel.subregion
+        self.capitalValueLabel.text = dataModel.capital?.first ?? "No Capital"
+
+        self.capitalCoordinatesValueLabel.text = String.convertDoubleToDegrees(dataModel.capitalInfo.latlng)
+        self.populationValueLabel.text = String.convertIntWithPrefix(dataModel.population)
+        self.areaValueLabel.text = String.convertDoubleWithPrefix(dataModel.area)
+        self.timezoneValueLabel.text = dataModel.timezones.joined(separator: "\n")
+        self.currencyValueLabel.text = String.convertCurernciesToString(dataModel.currencies, andWrappingType: .multiLine)
     }
 }
 
@@ -383,5 +381,33 @@ extension CountryDetailsView {
     
     override func configureAppearance() {
         super.configureAppearance()
+    }
+    
+    func updateImage() {
+        guard let imageURL = imageURL else { return }
+        getImage(fromURL: imageURL) { result in
+            switch result {
+            case .success(let image):
+                self.imageFlagView.image = image
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+private
+extension CountryDetailsView {
+    
+    func getImage(fromURL url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
+        NetworkManager.shared.imageFetchRequest(url) { result in
+            switch result {
+            case .success(let imageData):
+                guard let image = UIImage(data: imageData) else  { return }
+                completion(.success(image))
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }

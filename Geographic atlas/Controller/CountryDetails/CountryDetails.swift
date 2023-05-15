@@ -10,11 +10,11 @@ import UIKit
 class CountryDetails: GABaseController {
     
     let detailsView = CountryDetailsView()
-    var dataSource: MockData.Countries?
+    var dataModel: Country?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = dataSource?.name
+        title = dataModel?.name.common
         setupViews()
         constraintViews()
         configureAppearance()
@@ -45,7 +45,7 @@ extension CountryDetails {
     override func configureAppearance() {
         super.configureAppearance()
         view.backgroundColor = .white
-        detailsView.configure(withData: dataSource!)
+        detailsView.configure(withDataModel: dataModel!)
     }
 }
 
