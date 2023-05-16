@@ -109,7 +109,12 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var heightConstant: Double = 72
         if let cell = self.collectionView.cellForItem(at: indexPath) as? CountryCellView {
-            heightConstant = cell.isDetailViewHidden ? 72 : 216
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                heightConstant = cell.isDetailViewHidden ?  112 : 256
+            } else {
+                heightConstant = cell.isDetailViewHidden ? 72 : 216
+                
+            }
         }
         return CGSize(width: collectionView.frame.width, height: heightConstant)
     }

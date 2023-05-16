@@ -336,7 +336,16 @@ extension CountryDetailsView {
             $0.leading.equalTo(containerView.snp.leading)
             $0.top.equalTo(containerView.snp.top)
             $0.trailing.equalTo(containerView.snp.trailing)
-            $0.height.equalTo(193)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                    if let window = windowScene.windows.first {
+                        $0.height.equalTo(window.bounds.width * 0.5)
+                    }
+                    
+                }
+            } else {
+                $0.height.equalTo(193)
+            }
         }
         
         bulletOne.snp.makeConstraints {
