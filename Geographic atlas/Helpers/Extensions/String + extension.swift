@@ -65,7 +65,7 @@ extension String {
         case multiLine = "\n"
     }
     
-    static func convertCurernciesToString(_ currencies: Currencies?, andWrappingType wrappingType: WrappingType) -> String {
+    static func convertCurernciesToString(_ currencies: Currencies?, andWrappingType wrappingType: WrappingType = .singleLine) -> String {
         var namesAndSymbols: [(name: String, symbol: String?)] = []
         if let currencies = currencies {
             let currenciesMirror = Mirror(reflecting: currencies)

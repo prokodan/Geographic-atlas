@@ -10,6 +10,8 @@ import SnapKit
 
 class CountriesListController: GABaseController {
     
+    private let notificationManager = NotificationManager()
+    
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 12
@@ -53,16 +55,34 @@ extension CountriesListController {
     }
     
     private func updateModel() {
-        DispatchQueue.main.async {
-            NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
-                switch result {
-                case .success(let model):
-                    self.model = model
-                    self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
+        NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
+            switch result {
+            case .success(let model):
+                self.model = model
+                self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
+                self.getNotifications(withModel: model)
+                DispatchQueue.main.async {
                     self.collectionView.reloadData()
-                case .failure(let error):
-                    print(error.localizedDescription)
                 }
+                
+                //unwrapping
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    
+    private func getNotifications(withModel model: [Country]) {
+        guard let modelRandomElement = model.randomElement() else { return }
+        var notificationImage: UIImage?
+        NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png)!) { result in
+            switch result {
+            case .success(let imageData):
+                notificationImage = UIImage(data: imageData)
+                self.notificationManager.scheduleNotification(withModel: modelRandomElement, andImage: notificationImage ?? UIImage())
+            case .failure(let error):
+                print("Error fetching imageData for notification: \(error)")
             }
         }
     }

@@ -14,6 +14,8 @@
 		9E339CFA2A121FF800143495 /* String + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339CF92A121FF800143495 /* String + extension.swift */; };
 		9E339CFE2A12802300143495 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339CFD2A12802300143495 /* CacheManager.swift */; };
 		9E339D012A12B22100143495 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9E339D002A12B22100143495 /* SnapKit */; };
+		9E339D032A1367A800143495 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339D022A1367A800143495 /* NotificationManager.swift */; };
+		9E339D072A13757100143495 /* UNNotificationAttachment + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E339D062A13757100143495 /* UNNotificationAttachment + extension.swift */; };
 		9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBDF2A0E31440013910F /* AppDelegate.swift */; };
 		9EABCBE22A0E31440013910F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EABCBE12A0E31440013910F /* SceneDelegate.swift */; };
 		9EABCBE92A0E31460013910F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EABCBE82A0E31460013910F /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 		9E339CF72A112F0F00143495 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9E339CF92A121FF800143495 /* String + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + extension.swift"; sourceTree = "<group>"; };
 		9E339CFD2A12802300143495 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		9E339D022A1367A800143495 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		9E339D062A13757100143495 /* UNNotificationAttachment + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationAttachment + extension.swift"; sourceTree = "<group>"; };
 		9EABCBDC2A0E31440013910F /* Geographic atlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Geographic atlas.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EABCBDF2A0E31440013910F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9EABCBE12A0E31440013910F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +102,7 @@
 			children = (
 				9E339CF72A112F0F00143495 /* NetworkManager.swift */,
 				9E339CFD2A12802300143495 /* CacheManager.swift */,
+				9E339D022A1367A800143495 /* NotificationManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -197,6 +202,7 @@
 				9EABCC012A0E3F400013910F /* UIColor + extension.swift */,
 				9EABCC042A0E407C0013910F /* UIView + extension.swift */,
 				9E339CF92A121FF800143495 /* String + extension.swift */,
+				9E339D062A13757100143495 /* UNNotificationAttachment + extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -340,10 +346,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E339D072A13757100143495 /* UNNotificationAttachment + extension.swift in Sources */,
 				9E339CF82A112F0F00143495 /* NetworkManager.swift in Sources */,
 				9EABCBE02A0E31440013910F /* AppDelegate.swift in Sources */,
 				9EABCC082A0E46630013910F /* GABaseView.swift in Sources */,
 				9EABCBFA2A0E37C90013910F /* Resources.swift in Sources */,
+				9E339D032A1367A800143495 /* NotificationManager.swift in Sources */,
 				9EABCC002A0E3CAB0013910F /* NavigationController.swift in Sources */,
 				9E339CEC2A10F2CF00143495 /* UIPaddingLabel.swift in Sources */,
 				9EABCC0E2A0E4D150013910F /* CountriesListController.swift in Sources */,
