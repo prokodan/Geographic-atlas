@@ -9,8 +9,8 @@ import UIKit
 import SnapKit
 
 class CountriesListController: GABaseController {
-    
-    private let notificationManager = NotificationManager()
+    //MARK: - Initialization
+    private let notificationManager = NotificationManager.shared
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -35,7 +35,7 @@ class CountriesListController: GABaseController {
 }
 
 extension CountriesListController {
-
+    //MARK: - BaseController Merthods
     override func setupViews() {
         super.setupViews()
         [
@@ -54,55 +54,54 @@ extension CountriesListController {
         }
     }
     
-    private func updateModel() {
-        NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
-            switch result {
-            case .success(let model):
-                self.model = model
-                self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
-                self.getNotifications(withModel: model)
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-                
-                //unwrapping
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-        
-    }
-    
-    private func getNotifications(withModel model: [Country]) {
-        guard let modelRandomElement = model.randomElement() else { return }
-        var notificationImage: UIImage?
-        NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png)!) { result in
-            switch result {
-            case .success(let imageData):
-                notificationImage = UIImage(data: imageData)
-                self.notificationManager.scheduleNotification(withModel: modelRandomElement, andImage: notificationImage ?? UIImage())
-            case .failure(let error):
-                print("Error fetching imageData for notification: \(error)")
-            }
-        }
-    }
-    
     override func configureAppearance() {
         super.configureAppearance()
         title = R.Strings.NavBar.countriesListTitle
         navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 1)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", image: nil, primaryAction: nil, menu: nil)
         
-        updateModel()
         collectionView.register(CountryCellView.self, forCellWithReuseIdentifier: CountryCellView.id)
         collectionView.register(SectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeaderView.id)
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        
-//        collectionView.reloadData()
+
         collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
+        
+        updateModel()
     }
+    
+    //MARK: - Updating model
+     private func updateModel() {
+         NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
+             switch result {
+             case .success(let model):
+                 self.model = model
+                 self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
+                 self.getNotifications(withModel: model)
+                 DispatchQueue.main.async {
+                     self.collectionView.reloadData()
+                 }
+             case .failure(let error):
+                 print(error.localizedDescription)
+             }
+         }
+         
+     }
+   //MARK: - Notifications
+     private func getNotifications(withModel model: [Country]) {
+         guard let modelRandomElement = model.randomElement() else { return }
+         var notificationImage: UIImage?
+         NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png)!) { result in
+             switch result {
+             case .success(let imageData):
+                 notificationImage = UIImage(data: imageData)
+                 self.notificationManager.scheduleNotification(withModel: modelRandomElement, andImage: notificationImage ?? UIImage())
+             case .failure(let error):
+                 print("Error fetching imageData for notification: \(error)")
+             }
+         }
+     }
 }
 //MARK: - UICollectionViewDelegateFlowLayout
 extension CountriesListController: UICollectionViewDelegateFlowLayout {
@@ -186,15 +185,15 @@ extension CountriesListController: UICollectionViewDataSource {
         return view
     }
 }
-
+    //MARK: - Target Methods
 @objc
 extension CountriesListController {
     func didTapButton() {
         let countryDetailsVC = CountryDetails()
         guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
         let sectionKey = Array(sectionedModels.keys)[indexPath.section]
-        let model = sectionedModels[sectionKey]![indexPath.item]
-        NetworkManager.shared.fetchRequest(Links.countryCCA2.rawValue, andCCA2Code: model.cca2) { result in
+        let country = sectionedModels[sectionKey]![indexPath.item]
+        NetworkManager.shared.fetchRequest(Links.countryCCA2.rawValue, andCCA2Code: country.cca2) { result in
             switch result {
             case .success(let countryModel):
                 countryDetailsVC.dataModel = countryModel.first

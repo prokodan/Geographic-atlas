@@ -10,6 +10,11 @@ import UserNotifications
 
 class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     
+    static let shared = NotificationManager()
+    
+    private override init() {
+        super.init()
+    }
     let notificationCenter = UNUserNotificationCenter.current()
     
     func requestAuthorization() {
@@ -39,13 +44,15 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         if let attachment =
             UNNotificationAttachment.create(identifier: id, image: image, options: nil) {
             print("Added attachment")
-                content.attachments = [attachment]
+            content.attachments = [attachment]
             
         }
         
         content.sound = UNNotificationSound.default
         content.badge = 1
-
+        content.categoryIdentifier = userAction
+        content.userInfo = [ "cca2" : "\(model.cca2)" ]
+        
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
         let request = UNNotificationRequest.init(identifier: identifier, content: content, trigger: trigger)
@@ -65,4 +72,39 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         completionHandler([.banner, .list, .sound])
     }
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        switch response.actionIdentifier {
+        case UNNotificationDismissActionIdentifier:
+            print("Dismiss action")
+        case UNNotificationDefaultActionIdentifier:
+            
+            let userInfo = response.notification.request.content.userInfo
+            guard let cca2Code = userInfo["cca2"] as? String else { return }
+            let countryController = CountryDetails()
+            NetworkManager.shared.fetchRequest(Links.countryCCA2.rawValue, andCCA2Code: cca2Code) { result in
+                switch result {
+                case .success(let country):
+                    countryController.dataModel = country.first
+                    
+                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                        if let window = windowScene.windows.first, let rootVC = window.rootViewController as? NavigationController {
+                            rootVC.pushViewController(countryController, animated: true)
+                        }
+                    }
+                case .failure(let error):
+                    print("Error fetching country via cca2 in push: \(error.localizedDescription)")
+                }
+            }
+            
+        case "Delete":
+            print("Delete")
+        default:
+            print("Unknown action")
+        }
+        completionHandler()
+    }
+    
+    
 }

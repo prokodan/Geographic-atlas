@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import UserNotifications
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
+    let notificationCenter = NotificationManager.shared
+    
     var window: UIWindow?
 
 
@@ -21,6 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = navController
         window?.makeKeyAndVisible()
     }
+    
+    
+    
 
 }
 

@@ -11,13 +11,15 @@ import UserNotifications
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    let notificationCenter = NotificationManager()
+    let notificationCenter = NotificationManager.shared
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        self.notificationCenter.requestAuthorization()
-        notificationCenter.notificationCenter.delegate = notificationCenter
-        return true
+        
+            self.notificationCenter.requestAuthorization()
+            notificationCenter.notificationCenter.delegate = notificationCenter
+        
+            return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
