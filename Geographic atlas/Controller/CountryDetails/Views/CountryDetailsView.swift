@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class CountryDetailsView: GABaseView {
-    
+    //MARK: - Initialization
     private let imageFlagView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
@@ -63,6 +63,7 @@ class CountryDetailsView: GABaseView {
         label.font = R.Fonts.sFProRegular(with: 20)
         label.textColor = R.Colors.primaryText
         label.textAlignment = .left
+        
         return label
     }()
     
@@ -236,6 +237,8 @@ class CountryDetailsView: GABaseView {
             updateImage()
         }
     }
+    
+    private var mapsURL: URL?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -251,6 +254,7 @@ class CountryDetailsView: GABaseView {
         configureAppearance()
     }
     
+    //MARK: - Configuring methods
     func configure(withDataModel dataModel: Country) {
         self.imageURL = URL(string:dataModel.flags.png)
         self.regionValueLabel.text = dataModel.subregion
@@ -261,9 +265,19 @@ class CountryDetailsView: GABaseView {
         self.areaValueLabel.text = String.convertDoubleWithPrefix(dataModel.area)
         self.timezoneValueLabel.text = dataModel.timezones.joined(separator: "\n")
         self.currencyValueLabel.text = String.convertCurernciesToString(dataModel.currencies, andWrappingType: .multiLine)
+        self.mapsURL = handeMapData(withDataModel: dataModel)
+        
+        
+    }
+    ///Handling data for openMaps coordinates
+    func handeMapData(withDataModel dataModel: Country) -> URL {
+        guard let lat = dataModel.capitalInfo.latlng?.first, let lng = dataModel.capitalInfo.latlng?.last else { return URL(string: dataModel.maps.openStreetMaps) ?? URL(string: Links.dummyTriangle.rawValue)! }
+        let latComponent = "/\(lat)"
+        let lngComponent = "/\(lng)"
+        return URL(string: "\(Links.streetMapLink.rawValue)\(latComponent)\(lngComponent)")!
     }
 }
-
+    //MARK: - BaseView Methods
 @objc
 extension CountryDetailsView {
     
@@ -435,23 +449,42 @@ extension CountryDetailsView {
     override func configureAppearance() {
         super.configureAppearance()
     }
-    
-    func updateImage() {
-        guard let imageURL = imageURL else { return }
-        getImage(fromURL: imageURL) { result in
-            switch result {
-            case .success(let image):
-                self.imageFlagView.image = image
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
 }
 
+
+    //MARK: - Target methods
+extension CountryDetailsView {
+        func updateImage() {
+            guard let imageURL = imageURL else { return }
+            getImage(fromURL: imageURL) { result in
+                switch result {
+                case .success(let image):
+                    self.imageFlagView.image = image
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    
+    func addTargetToCoordinatesValue() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTappedLabel))
+
+        capitalCoordinatesValueLabel.isUserInteractionEnabled = true
+        capitalCoordinatesValueLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    
+    @objc
+    func didTappedLabel() {
+        print("Tapped")
+        guard let safeURL = mapsURL else { return }
+        UIApplication.shared.open(safeURL)
+        
+    }
+}
+    //MARK: - ImageDownloading
 private
 extension CountryDetailsView {
-    
     func getImage(fromURL url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
         NetworkManager.shared.imageFetchRequest(url) { result in
             switch result {

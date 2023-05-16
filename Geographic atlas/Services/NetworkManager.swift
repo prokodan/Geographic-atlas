@@ -11,6 +11,9 @@ import Alamofire
 enum Links: String {
     case allcountries = "https://restcountries.com/v3.1/all"
     case countryCCA2 = "https://restcountries.com/v3.1/alpha/"
+    case streetMapLink = "https://www.openstreetmap.org/#map=9"
+    case dummyTriangle = "https://www.openstreetmap.org/#map=9/25.23/-70.99"
+    case flagPlaceholer = "https://imageup.ru/img292/4340941/tempimagegs7wpn.jpg"
 }
 
 class NetworkManager {
@@ -19,6 +22,7 @@ class NetworkManager {
     
     private init() {}
     
+    ///Fetching data for the list of countries
     func fetchRequest(_ url: String, completion: @escaping (Result<[Country], Error> ) -> Void) {
         AF.request(url)
             .validate()
@@ -32,6 +36,7 @@ class NetworkManager {
             }
     }
     
+    ///Fetching image data
     func imageFetchRequest(_ url: URL, completion: @escaping (Result<Data, Error> ) -> Void) {
         AF.request(url)
             .validate()
@@ -46,7 +51,7 @@ class NetworkManager {
             }
     }
     
-    
+    ///Fetching data for the country via cca2 code
     func fetchRequest(_ url: String, andCCA2Code code: String, completion: @escaping (Result<[Country], Error> ) -> Void) {
         AF.request(url + "\(code)")
             .validate()

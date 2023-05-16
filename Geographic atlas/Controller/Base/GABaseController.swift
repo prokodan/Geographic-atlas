@@ -9,6 +9,7 @@ import UIKit
 
 class GABaseController: UIViewController {
     
+    //MARK: - LifeCycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -16,6 +17,8 @@ class GABaseController: UIViewController {
         configureAppearance()
     }
 }
+
+    //MARK: - BaseMethods
 
 @objc
 extension GABaseController {

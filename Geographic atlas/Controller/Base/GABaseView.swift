@@ -8,6 +8,8 @@
 import UIKit
 
 class GABaseView: UIView {
+    
+    //MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -23,6 +25,7 @@ class GABaseView: UIView {
     }
 }
 
+    //MARK: - BaseMethods
 @objc
 extension GABaseView {
     

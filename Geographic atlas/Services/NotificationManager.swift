@@ -30,7 +30,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             print("Notification settings: \(settings)")
         }
     }
-    
+    ///Creating notification with content data for a model, image and time interval
     func scheduleNotification(withModel model: Country, andImage image: UIImage, _ timeInterval: TimeInterval = 3) {
         let identifier = "randomCountry"
         let content = UNMutableNotificationContent()
@@ -73,7 +73,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         completionHandler([.banner, .list, .sound])
     }
     
-    
+    //MARK: - Notification and ViewController Handling
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
         case UNNotificationDismissActionIdentifier:
@@ -97,9 +97,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                     print("Error fetching country via cca2 in push: \(error.localizedDescription)")
                 }
             }
-            
-        case "Delete":
-            print("Delete")
         default:
             print("Unknown action")
         }

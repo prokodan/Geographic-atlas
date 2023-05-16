@@ -8,10 +8,10 @@
 import UIKit
 
 class CountryDetails: GABaseController {
-    
+    //MARK: - Initialization
     let detailsView = CountryDetailsView()
     var dataModel: Country?
-    
+    //MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         title = dataModel?.name.common
@@ -21,6 +21,7 @@ class CountryDetails: GABaseController {
     }
 }
 
+    //MARK: - BaseMethods
 @objc
 extension CountryDetails {
     
@@ -45,9 +46,13 @@ extension CountryDetails {
     override func configureAppearance() {
         super.configureAppearance()
         view.backgroundColor = .white
+        
+        guard dataModel != nil else { return }
         detailsView.configure(withDataModel: dataModel!)
+        detailsView.addTargetToCoordinatesValue()
     }
 }
+
 
 
 

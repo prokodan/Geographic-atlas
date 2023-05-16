@@ -9,6 +9,7 @@ import UIKit
 import UserNotifications
 
 extension UNNotificationAttachment {
+    ///Attaching UIImage to UNNotificationAttachment
     static func create(identifier: String, image: UIImage, options: [NSObject: AnyObject]?) -> UNNotificationAttachment? {
         let fileManger = FileManager.default
         let tmpSubFolderName = ProcessInfo.processInfo.globallyUniqueString

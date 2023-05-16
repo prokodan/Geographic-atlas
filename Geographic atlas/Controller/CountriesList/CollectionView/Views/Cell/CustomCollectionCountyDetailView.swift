@@ -9,6 +9,7 @@ import UIKit
 
 final class CustomCollectionCountyDetailView: GABaseView {
     
+    //MARK: - Initialization
     private let populationLabel: UILabel = {
         let label = UILabel()
         label.text = "\(R.Strings.Cell.populationLabel):"
@@ -71,6 +72,8 @@ final class CustomCollectionCountyDetailView: GABaseView {
         configureAppearance()
     }
     
+    //MARK: - Configuring
+    
     func configure(withPopulation population: String, andArea area: String, andCurrencies currencies: Currencies?) {
         populationValueLabel.text = population
         areaValueLabel.text = area
@@ -78,11 +81,15 @@ final class CustomCollectionCountyDetailView: GABaseView {
         button.setTitle(R.Strings.Cell.buttonTextLabel)
     }
     
+    //MARK: - Add target methods
+    
     func addButtonTarget(target: Any?, action: Selector) {
         button.addTarget(target, action: action, for: .touchUpInside)
     }
     
 }
+
+    //MARK: - BaseView methods
 
 extension CustomCollectionCountyDetailView {
     override func setupViews() {
@@ -135,31 +142,6 @@ extension CustomCollectionCountyDetailView {
             $0.height.equalTo(50)
             $0.bottom.equalToSuperview().offset(-12)
         }
-        
-        
-        
-//        NSLayoutConstraint.activate([
-//            populationLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            populationLabel.topAnchor.constraint(equalTo: topAnchor),
-//            populationLabel.trailingAnchor.constraint(equalTo: populationValueLabel.leadingAnchor, constant: -4),
-//            populationValueLabel.topAnchor.constraint(equalTo: populationLabel.topAnchor),
-//
-//            areaLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            areaLabel.topAnchor.constraint(equalTo: populationLabel.bottomAnchor, constant: 8),
-//            areaLabel.trailingAnchor.constraint(equalTo: areaValueLabel.leadingAnchor, constant: -4),
-//            areaValueLabel.topAnchor.constraint(equalTo: areaLabel.topAnchor),
-////
-//            currenciesLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            currenciesLabel.topAnchor.constraint(equalTo: areaLabel.bottomAnchor, constant: 8),
-//            currenciesLabel.trailingAnchor.constraint(equalTo: currenciesValueLabel.leadingAnchor, constant: -4),
-//            currenciesValueLabel.topAnchor.constraint(equalTo: currenciesLabel.topAnchor),
-////
-//            button.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
-//            button.topAnchor.constraint(equalTo: currenciesLabel.bottomAnchor, constant: 12),
-//            button.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12),
-//            button.heightAnchor.constraint(equalToConstant: 50),
-//            button.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -12)
-//        ])
     }
     
     override func configureAppearance() {

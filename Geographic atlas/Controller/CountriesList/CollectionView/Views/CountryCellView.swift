@@ -10,7 +10,7 @@ import UIKit
 
 
 final class CountryCellView: UICollectionViewCell {
-
+    //MARK: - Initialization
     static let id = "CountryCellView"
     
 //    private let containerView : UIStackView = {
@@ -75,10 +75,10 @@ final class CountryCellView: UICollectionViewCell {
 //        }
 //    }
     
-    
+    //MARK: - Configuring methods
     func configure(with model: Country) {
-        cellView.configure(withName: model.name.common, andCapital: model.capital?.first ?? "No capital", andImageURL: URL(string: model.flags.png)!)
-//        force unwrapping
+        cellView.configure(withName: model.name.common, andCapital: model.capital?.first ?? "No capital", andImageURL: URL(string: model.flags.png) ?? URL(string: Links.flagPlaceholer.rawValue)!)
+//        force unwrapping to existing picture
         detailView.configure(withPopulation: String.convertIntWithPrefix(model.population), andArea: String.convertDoubleWithPrefix(model.area), andCurrencies: model.currencies)
     }
     
@@ -90,7 +90,7 @@ final class CountryCellView: UICollectionViewCell {
 //        return layoutAttributes
 //    }
 }
-
+    //MARK: - BaseView methods
 private
 extension CountryCellView {
     func setupViews() {

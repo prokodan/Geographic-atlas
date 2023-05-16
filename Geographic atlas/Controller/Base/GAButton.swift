@@ -8,6 +8,9 @@
 import UIKit
 
 final class GAButton: UIButton {
+    
+    //MARK: - Initialization
+    
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = R.Colors.buttonTextColor
@@ -35,6 +38,8 @@ final class GAButton: UIButton {
         label.text = title
     }
 }
+
+    //MARK: - BaseMethods
 
 private extension GAButton {
     

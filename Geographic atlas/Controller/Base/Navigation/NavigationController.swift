@@ -9,11 +9,14 @@ import UIKit
 
 final class NavigationController: UINavigationController {
 
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
         
     }
+    
+    //MARK: - Configuring methods
     
     private func configure() {
         view.backgroundColor = R.Colors.background

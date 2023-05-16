@@ -10,6 +10,7 @@ import SnapKit
 
 final class CountryCollectionCellView: GABaseView {
     
+    //MARK: - Initialization
     private let imageFlagView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
@@ -66,6 +67,8 @@ final class CountryCollectionCellView: GABaseView {
         configureAppearance()
     }
     
+    //MARK: - Configuring methods
+    
     func configure(withName name: String, andCapital capital: String, andImageURL imageURL: URL) {
         self.nameLabel.text = name
         self.capitalLabel.text = capital
@@ -81,6 +84,8 @@ final class CountryCollectionCellView: GABaseView {
         self.imageArrowView.image = R.Pictures.Cell.arrowUp
     }
 }
+
+//MARK: - BaseView Methods
  
 extension CountryCollectionCellView {
     override func setupViews() {
@@ -126,6 +131,8 @@ extension CountryCollectionCellView {
         imageFlagView.roundCorners(with: 12, and: [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner])
     }
     
+    //MARK: - Updating image
+    
     func updateImage() {
         guard let imageURL = imageURL else { return }
         getImage(fromURL: imageURL) { result in
@@ -141,6 +148,7 @@ extension CountryCollectionCellView {
     }
 }
 
+    //MARK: - GetImage & Cacheing methods
 private
 extension CountryCollectionCellView {
     

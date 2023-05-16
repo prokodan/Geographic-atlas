@@ -9,7 +9,7 @@ import UIKit
 
 final class SectionHeaderView: UICollectionReusableView {
     static let id = "SectionHeaderView"
-    
+    //MARK: - Initialization
     private let title: UILabel = {
         let label = UILabel()
         label.font = R.Fonts.sFProBold(with: 15)
@@ -31,12 +31,13 @@ final class SectionHeaderView: UICollectionReusableView {
         constraintViews()
         configureAppearance()
     }
-    
+    //MARK: - Configuring methods
     func configure(with data: String) {
         title.text = data.uppercased()
     }
 }
 
+    //MARK: - Base methods
 private
 extension SectionHeaderView {
     func setupViews() {

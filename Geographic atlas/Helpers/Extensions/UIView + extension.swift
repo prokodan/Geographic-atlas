@@ -8,6 +8,7 @@
 import UIKit
 
 extension UIView {
+    ///Adding bottom border to view with color and height
     func addBottomBorder(withColor color: UIColor, andHeight height: CGFloat ) {
         let separator = UIView()
         separator.backgroundColor = color
@@ -20,12 +21,13 @@ extension UIView {
         self.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
     }
-    
+    ///Adding rounded corners  to view with radius and corners array
     func roundCorners(with radius: CGFloat, and corners: CACornerMask) {
         layer.cornerRadius = radius
         layer.maskedCorners = corners
     }
     
+    ///Add system behavior to the custom button
     func makeSystem(_ button: UIButton) {
         button.addTarget(self, action: #selector(handleIn), for: [
             .touchDown,

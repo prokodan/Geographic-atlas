@@ -34,8 +34,8 @@ class CountriesListController: GABaseController {
     }
 }
 
+//MARK: - BaseController Methods
 extension CountriesListController {
-    //MARK: - BaseController Merthods
     override func setupViews() {
         super.setupViews()
         [
@@ -92,7 +92,7 @@ extension CountriesListController {
      private func getNotifications(withModel model: [Country]) {
          guard let modelRandomElement = model.randomElement() else { return }
          var notificationImage: UIImage?
-         NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png)!) { result in
+         NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png) ?? URL(string: Links.flagPlaceholer.rawValue)!) { result in
              switch result {
              case .success(let imageData):
                  notificationImage = UIImage(data: imageData)
@@ -103,7 +103,7 @@ extension CountriesListController {
          }
      }
 }
-//MARK: - UICollectionViewDelegateFlowLayout
+//MARK: - UICollectionViewDelegateFlowLayout methods
 extension CountriesListController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -156,7 +156,7 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
     
     
 }
-//MARK: - UICollectionViewDataSource
+//MARK: - UICollectionViewDataSource methods
 extension CountriesListController: UICollectionViewDataSource {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
