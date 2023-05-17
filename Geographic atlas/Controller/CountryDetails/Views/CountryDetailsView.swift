@@ -485,7 +485,6 @@ extension CountryDetailsView {
     
     @objc
     func didTappedLabel() {
-        print("Tapped")
         guard let safeURL = mapsURL else { return }
         UIApplication.shared.open(safeURL)
         

@@ -138,9 +138,11 @@ extension CountryCollectionCellView {
         getImage(fromURL: imageURL) { result in
             switch result {
             case .success(let image):
+                //
 //                if imageURL == self.imageURL {
 //                }
                 self.imageFlagView.image = image
+//                
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -153,15 +155,18 @@ private
 extension CountryCollectionCellView {
     
     func getImage(fromURL url: URL, completion: @escaping(Result<UIImage, Error>) -> Void) {
+//
 //        if let cacheImage = CacheManager.shared.object(forKey: url.lastPathComponent as NSString) {
 //            completion(.success(cacheImage))
 //        }
-        
+//
         NetworkManager.shared.imageFetchRequest(url) { result in
             switch result {
             case .success(let imageData):
                 guard let image = UIImage(data: imageData) else  { return }
+//
 //                CacheManager.shared.setObject(image, forKey: url.lastPathComponent as NSString)
+//
                 completion(.success(image))
             case .failure(let error):
                 print(error.localizedDescription)

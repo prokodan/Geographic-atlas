@@ -39,7 +39,7 @@ extension CountriesListController {
     override func setupViews() {
         super.setupViews()
         [
-        collectionView
+            collectionView
         ].forEach {view.addView($0)}
     }
     
@@ -57,7 +57,7 @@ extension CountriesListController {
     override func configureAppearance() {
         super.configureAppearance()
         title = R.Strings.NavBar.countriesListTitle
-        navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 1)
+        navigationController?.navigationBar.addBottomBorder(withColor: R.Colors.separatorColor, andHeight: 0.5)
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", image: nil, primaryAction: nil, menu: nil)
         
         collectionView.register(CountryCellView.self, forCellWithReuseIdentifier: CountryCellView.id)
@@ -65,43 +65,43 @@ extension CountriesListController {
         
         collectionView.delegate = self
         collectionView.dataSource = self
-
+        
         collectionView.contentInset = UIEdgeInsets(top: 24, left: 0, bottom: 0, right: 0)
         
         updateModel()
     }
     
     //MARK: - Updating model
-     private func updateModel() {
-         NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
-             switch result {
-             case .success(let model):
-                 self.model = model
-                 self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
-                 self.getNotifications(withModel: model)
-                 DispatchQueue.main.async {
-                     self.collectionView.reloadData()
-                 }
-             case .failure(let error):
-                 print(error.localizedDescription)
-             }
-         }
-         
-     }
-   //MARK: - Notifications
-     private func getNotifications(withModel model: [Country]) {
-         guard let modelRandomElement = model.randomElement() else { return }
-         var notificationImage: UIImage?
-         NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png) ?? URL(string: Links.flagPlaceholer.rawValue)!) { result in
-             switch result {
-             case .success(let imageData):
-                 notificationImage = UIImage(data: imageData)
-                 self.notificationManager.scheduleNotification(withModel: modelRandomElement, andImage: notificationImage ?? UIImage())
-             case .failure(let error):
-                 print("Error fetching imageData for notification: \(error)")
-             }
-         }
-     }
+    private func updateModel() {
+        NetworkManager.shared.fetchRequest(Links.allcountries.rawValue) { result in
+            switch result {
+            case .success(let model):
+                self.model = model
+                self.sectionedModels = Dictionary(grouping: model, by: {$0.continents})
+                self.getNotifications(withModel: model)
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        
+    }
+    //MARK: - Notifications
+    private func getNotifications(withModel model: [Country]) {
+        guard let modelRandomElement = model.randomElement() else { return }
+        var notificationImage: UIImage?
+        NetworkManager.shared.imageFetchRequest(URL(string: modelRandomElement.flags.png) ?? URL(string: Links.flagPlaceholer.rawValue)!) { result in
+            switch result {
+            case .success(let imageData):
+                notificationImage = UIImage(data: imageData)
+                self.notificationManager.scheduleNotification(withModel: modelRandomElement, andImage: notificationImage ?? UIImage())
+            case .failure(let error):
+                print("Error fetching imageData for notification: \(error)")
+            }
+        }
+    }
 }
 //MARK: - UICollectionViewDelegateFlowLayout methods
 extension CountriesListController: UICollectionViewDelegateFlowLayout {
@@ -128,38 +128,19 @@ extension CountriesListController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView
+        
+        
         UIView.animate(withDuration: 0.3) {
-            self.collectionView.performBatchUpdates(nil)
-
+            collectionView.performBatchUpdates(nil)
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = self.collectionView.cellForItem(at: indexPath) as? CountryCellView {
             cell.hideDetailView()
         }
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView
-//        cell?.hideDetailView()
-            
-
     }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return }
-        cell.layoutIfNeeded()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CountryCellView.id, for: indexPath) as? CountryCellView else { return }
-        cell.hideDetailView()
-        cell.layoutIfNeeded()
-    }
-    
-    
-    
 }
 //MARK: - UICollectionViewDataSource methods
 extension CountriesListController: UICollectionViewDataSource {
@@ -180,9 +161,9 @@ extension CountriesListController: UICollectionViewDataSource {
         cell.configure(with: cellModel)
         cell.buttonAction(target: self, action: #selector(didTapButton))
         return cell
-                
+        
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: SectionHeaderView.id, for: indexPath) as? SectionHeaderView else { return UICollectionReusableView() }
         let sectionKey = Array(sectionedModels.keys)[indexPath.section]
@@ -190,7 +171,7 @@ extension CountriesListController: UICollectionViewDataSource {
         return view
     }
 }
-    //MARK: - Target Methods
+//MARK: - Target Methods
 @objc
 extension CountriesListController {
     func didTapButton() {
@@ -202,7 +183,7 @@ extension CountriesListController {
             switch result {
             case .success(let countryModel):
                 countryDetailsVC.dataModel = countryModel.first
-                print(countryModel)
+//                print(countryModel)
                 self.navigationController?.pushViewController(countryDetailsVC, animated: true)
             case .failure(let error):
                 print(error.localizedDescription)

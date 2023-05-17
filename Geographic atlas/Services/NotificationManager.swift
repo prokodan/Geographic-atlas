@@ -19,7 +19,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     
     func requestAuthorization() {
         notificationCenter.requestAuthorization(options: [.alert, .sound, .badge]) { grandted, error in
-            print("Permisson granted: \(grandted)")
+//            print("Permisson granted: \(grandted)")
             guard grandted else { return }
             self.getNotificationSettings()
         }
@@ -27,7 +27,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     
     func getNotificationSettings() {
         notificationCenter.getNotificationSettings { settings in
-            print("Notification settings: \(settings)")
+//            print("Notification settings: \(settings)")
         }
     }
     ///Creating notification with content data for a model, image and time interval
@@ -43,7 +43,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let id = ProcessInfo.processInfo.globallyUniqueString
         if let attachment =
             UNNotificationAttachment.create(identifier: id, image: image, options: nil) {
-            print("Added attachment")
+//            print("Added attachment")
             content.attachments = [attachment]
             
         }
@@ -76,8 +76,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     //MARK: - Notification and ViewController Handling
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         switch response.actionIdentifier {
-        case UNNotificationDismissActionIdentifier:
-            print("Dismiss action")
         case UNNotificationDefaultActionIdentifier:
             
             let userInfo = response.notification.request.content.userInfo

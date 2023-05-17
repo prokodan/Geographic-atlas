@@ -122,7 +122,7 @@ extension CustomCollectionCountyDetailView {
             $0.top.equalTo(populationLabel.snp.bottom).offset(8)
         }
         areaValueLabel.snp.makeConstraints {
-            $0.leading.equalTo(populationLabel.snp.trailing).offset(4)
+            $0.leading.equalTo(areaLabel.snp.trailing).offset(4)
             $0.top.equalTo(areaLabel.snp.top)
         }
         
@@ -131,7 +131,7 @@ extension CustomCollectionCountyDetailView {
             $0.top.equalTo(areaLabel.snp.bottom).offset(8)
         }
         currenciesValueLabel.snp.makeConstraints {
-            $0.leading.equalTo(populationLabel.snp.trailing).offset(4)
+            $0.leading.equalTo(currenciesLabel.snp.trailing).offset(4)
             $0.top.equalTo(currenciesLabel.snp.top)
         }
         
@@ -139,7 +139,7 @@ extension CustomCollectionCountyDetailView {
             $0.leading.equalToSuperview().offset(12)
             $0.top.equalTo(currenciesLabel.snp.bottom).offset(12)
             $0.trailing.equalToSuperview().offset(-12)
-            $0.height.equalTo(50)
+            $0.height.equalTo(50) // conflicting constraint needs fixing
             $0.bottom.equalToSuperview().offset(-12)
         }
     }
